@@ -8,9 +8,7 @@ const getAll = async (req, res, next) => {
         res.json(result);        
     }
     catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
+        next(error);
     }
 }
 
@@ -31,10 +29,7 @@ const getById = async (req, res, next) => {
         res.json(result);
     }
     catch (error) {
-        const { status = 500, message = "Server error" } = error;
-        res.status(status).json({
-            message,
-        })
+        next(error);
     }
 }
 
