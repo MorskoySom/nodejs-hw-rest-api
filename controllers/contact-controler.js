@@ -1,5 +1,7 @@
 import contactsService from "../models/contacts/index.js";
-import {HttpError} from "../helpers/index.js"
+import { HttpError } from "../helpers/index.js"
+
+import {contactAddSchema} from "../schemas/contact-schemas.js"
 
 const getAll = async (req, res, next) => {
     try {
@@ -33,7 +35,23 @@ const getById = async (req, res, next) => {
     }
 }
 
+const add = async (req, res, next) => {
+    try {
+        const {error} = contactAddSchema.validate(req.body);
+        if (error) {
+            throw HttpError(400, error.message)
+        }
+        const result = await contactsService.addContact(req.body);
+
+        res.status(201).json(result);
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
 export default {
     getAll,    
     getById,
+    add,
 }

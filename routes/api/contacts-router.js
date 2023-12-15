@@ -10,9 +10,7 @@ contactsRouter.get('/', contactControler.getAll)
 
 contactsRouter.get('/:contactId', contactControler.getById)
 
-contactsRouter.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+contactsRouter.post('/', contactControler.add)
 
 contactsRouter.delete('/:contactId', async (req, res, next) => {
   res.json({ message: 'template message' })
