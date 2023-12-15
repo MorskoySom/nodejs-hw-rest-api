@@ -6,3 +6,10 @@ export const contactAddSchema = Joi.object({
     phone: Joi.string().pattern(/\d+/).required(),
     
 })
+
+export const contactUpdateSchema = Joi.object({
+    name: Joi.string(),
+    email: Joi.string(),
+    phone: Joi.string().pattern(/\d+/),
+    
+})

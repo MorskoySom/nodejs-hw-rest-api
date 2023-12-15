@@ -1,1 +1,1 @@
-export { default as isNoBody } from "./isNoBody";
+export { default as isNoBody } from "./isNoBody.js";
