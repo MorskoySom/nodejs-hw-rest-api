@@ -10,7 +10,7 @@ contactsRouter.get('/', contactControler.getAll)
 
 // contactsRouter.get('/:contactId', contactControler.getById)
 
-// contactsRouter.post('/', isNoBody, contactControler.add)
+contactsRouter.post('/', isNoBody, contactControler.add)
 
 // contactsRouter.put('/:contactId', isNoBody, contactControler.updateById)
 

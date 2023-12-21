@@ -30,20 +30,20 @@ const getAll = async (req, res, next) => {
 //     }
 // }
 
-// const add = async (req, res, next) => {
-//     try {
-//         const {error} = contactAddSchema.validate(req.body);
-//         if (error) {
-//             throw HttpError(400, error.message)
-//         }
-//         const result = await contactsService.addContact(req.body);
+const add = async (req, res, next) => {
+    try {
+        const {error} = contactAddSchema.validate(req.body);
+        if (error) {
+            throw HttpError(400, error.message)
+        }
+        const result = await Contact.create(req.body);
 
-//         res.status(201).json(result);
-//     }
-//     catch (error) {
-//         next(error);
-//     }
-// }
+        res.status(201).json(result);
+    }
+    catch (error) {
+        next(error);
+    }
+}
 
 // const updateById = async (req, res, next) => {
 //     try {
@@ -84,7 +84,7 @@ const getAll = async (req, res, next) => {
 export default {
     getAll,    
     // getById,
-    // add,
+    add,
     // updateById,
     // deleteById
 }
