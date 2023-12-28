@@ -1,10 +1,11 @@
 // import contactsService from "../models/contacts/index.js";
 import Contact from "../models/Contact.js";
+
 import { HttpError } from "../helpers/index.js"
+import { ctrlWrapper } from "../decorators/index.js"
 
 import { contactAddSchema, contactUpdateSchema, contactUpdateFavoriteSchema } from "../models/Contact.js"
 
-import { ctrlWrapper } from "../decorators/index.js"
 
 const getAll = async (req, res) => {    
         const result = await Contact.find();
