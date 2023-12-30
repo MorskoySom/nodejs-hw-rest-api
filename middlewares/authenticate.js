@@ -5,19 +5,19 @@ import User from "../models/User.js";
 const { JWT_SECRET } = process.env;
 
 const authenticate = async (req, res, next) => {
-    const { autorization } = req.headers; 
-    if (!autorization) {
-        return next(HttpError(401, "Not authorized"))
+    const { authorization } = req.headers; 
+    if (!authorization) {
+        return next(HttpError(401, "Not 1authorized"))
     }
-    const [bearer, token] = autorization.split(" ");
+    const [bearer, token] = authorization.split(" ");
     if (bearer !== "Bearer") {
-        return next(HttpError(401, "Not authorized"))
+        return next(HttpError(401))
     }
     try {
         const { id } = jwt.verify(token, JWT_SECRET);
         const user = await User.findById(id);
         if (!user) {
-            return next(HttpError(401, "Not authorized"))
+            return next(HttpError(401))
         }
         next();
     }
