@@ -5,7 +5,10 @@ import { handleSaveError, addUpdateSettings } from "./hooks.js";
 
 const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const userSchema = new Schema({   
+const userSchema = new Schema({
+  username: {
+    type: String    
+  },
   password: {
     type: String,
     required: [true, 'Password is required'],
@@ -35,7 +38,7 @@ userSchema.pre("findOneAndUpdate", addUpdateSettings);
 userSchema.post("findOneAndUpdate", handleSaveError);
 
 export const userSignUpSchema = Joi.object({
-    owner: Joi.string().required(),
+    username: Joi.string(),
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(5).required(),
 })
