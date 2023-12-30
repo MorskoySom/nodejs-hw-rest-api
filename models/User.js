@@ -5,13 +5,7 @@ import { handleSaveError, addUpdateSettings } from "./hooks.js";
 
 const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const userSchema = new Schema({
-  owner: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    type: String,
-    required:true,
-  },  
+const userSchema = new Schema({   
   password: {
     type: String,
     required: [true, 'Password is required'],
