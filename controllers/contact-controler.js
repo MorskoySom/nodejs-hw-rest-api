@@ -2,6 +2,7 @@
 import Contact from "../models/Contact.js";
 import fs from "fs/promises";
 import path from "path";
+import gravatar from 'gravatar';
 
 import { HttpError } from "../helpers/index.js"
 import { ctrlWrapper } from "../decorators/index.js"
