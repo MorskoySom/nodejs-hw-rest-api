@@ -2,7 +2,7 @@ import express from "express";
 
 import contactControler from "../../controllers/contact-controler.js";
 
-import { authenticate, isNoBody, isCorrectId, isNoBodyFavorite } from "../../middlewares/index.js";
+import { authenticate, isNoBody, isCorrectId, isNoBodyFavorite, upload } from "../../middlewares/index.js";
 
 import { validateBody } from "../../decorators/index.js";
 
@@ -16,7 +16,7 @@ contactsRouter.get('/', contactControler.getAll)
 
 contactsRouter.get('/:contactId', isCorrectId, contactControler.getById)
 
-contactsRouter.post('/', isNoBody, validateBody(contactAddSchema), contactControler.add)
+contactsRouter.post('/', upload.single("avatar"), isNoBody, validateBody(contactAddSchema), contactControler.add)
 
 contactsRouter.put('/:contactId', isNoBody, isCorrectId, validateBody(contactUpdateSchema), contactControler.updateById)
 
