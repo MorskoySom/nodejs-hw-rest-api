@@ -1,14 +1,14 @@
 // import contactsService from "../models/contacts/index.js";
 import Contact from "../models/Contact.js";
-import fs from "fs/promises";
-import path from "path";
+// import fs from "fs/promises";
+// import path from "path";
 
 import { HttpError } from "../helpers/index.js"
 import { ctrlWrapper } from "../decorators/index.js"
 
 import { contactAddSchema, contactUpdateSchema, contactUpdateFavoriteSchema } from "../models/Contact.js"
 
-const avatarsPath = path.resolve("public", "avatars");
+// const avatarsPath = path.resolve("public", "avatars");
 
 const getAll = async (req, res) => {  
     const { _id: owner } = req.user;
