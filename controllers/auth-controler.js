@@ -4,6 +4,7 @@ import "dotenv/config";
 import gravatar from 'gravatar';
 import path from "path";
 import fs from "fs/promises";
+import Jimp from 'jimp';
 
 import User from "../models/User.js";
 
@@ -79,7 +80,17 @@ const updateAvatar = async (req, res) => {
     const { path: tempUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;
     const resultUpload = path.join(avatarsDir, filename);
-    await fs.rename(tempUpload, resultUpload);
+
+    const image = await Jimp.read(tempUpload);
+
+    await image.resize(250, 250);
+
+    await image.write(resultUpload);
+
+    await fs.unlink(tempUpload);
+
+    // await fs.rename(tempUpload, resultUpload);
+
     const avatarURL = path.join("avatars", filename);
     await User.findByIdAndUpdate(_id, { avatarURL });
 
