@@ -2,7 +2,6 @@
 import Contact from "../models/Contact.js";
 import fs from "fs/promises";
 import path from "path";
-import gravatar from 'gravatar';
 
 import { HttpError } from "../helpers/index.js"
 import { ctrlWrapper } from "../decorators/index.js"
@@ -36,7 +35,7 @@ const add = async (req, res) => {
     const { _id: owner } = req.user;
     const { path: oldPath, filename } = req.file;
     const newPath = path.join(avatarsPath, filename);
-    await fs.rename(oldPath, newPath);
+    await fs.rename(oldPath, newPath);    
     const avatarURL = path.join("avatars", filename)
 
         const result = await Contact.create({...req.body, avatarURL, owner});
