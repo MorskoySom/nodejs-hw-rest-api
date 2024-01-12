@@ -1,7 +1,7 @@
 import express from "express";
 import authControler from "../../controllers/auth-controler.js";
 
-import { isNoBody, authenticate } from "../../middlewares/index.js";
+import { isNoBody, authenticate, upload } from "../../middlewares/index.js";
 
 import { validateBody } from "../../decorators/index.js";
 
@@ -16,5 +16,7 @@ authRouter.post("/login", isNoBody, validateBody(userSignInSchema), authControle
 authRouter.get("/current", authenticate, authControler.getCurrent)
 
 authRouter.post("/logout", authenticate, authControler.signout)
+
+authRouter.patch("/avatars", authenticate, upload.single("avatar"), authControler.updateAvatar)
 
 export default authRouter;
