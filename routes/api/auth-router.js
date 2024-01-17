@@ -1,15 +1,19 @@
 import express from "express";
 import authControler from "../../controllers/auth-controler.js";
 
-import { isNoBody, authenticate, upload } from "../../middlewares/index.js";
+import { isNoBody, isNoBodyEmail, authenticate, upload } from "../../middlewares/index.js";
 
 import { validateBody } from "../../decorators/index.js";
 
-import { userSignUpSchema, userSignInSchema } from "../../models/User.js";
+import { userSignUpSchema, userSignInSchema, userEmailSchema } from "../../models/User.js";
 
 const authRouter = express.Router();
 
 authRouter.post("/register", isNoBody, validateBody(userSignUpSchema), authControler.signup);
+
+authRouter.get("/verify/:verificationToken", authControler.verify);
+
+authRouter.post("/verify", isNoBodyEmail, validateBody(userEmailSchema), authControler.resendVerifyEmail);
 
 authRouter.post("/login", isNoBody, validateBody(userSignInSchema), authControler.signin);
 
