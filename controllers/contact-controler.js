@@ -1,14 +1,7 @@
-// import contactsService from "../models/contacts/index.js";
 import Contact from "../models/Contact.js";
-// import fs from "fs/promises";
-// import path from "path";
 
 import { HttpError } from "../helpers/index.js"
 import { ctrlWrapper } from "../decorators/index.js"
-
-import { contactAddSchema, contactUpdateSchema, contactUpdateFavoriteSchema } from "../models/Contact.js"
-
-// const avatarsPath = path.resolve("public", "avatars");
 
 const getAll = async (req, res) => {  
     const { _id: owner } = req.user;
@@ -22,8 +15,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {    
     const { contactId: _id } = req.params;
     const { _id: owner } = req.user;
-    const result = await Contact.findOne({ _id, owner });
-        // const result = await Contact.findById(contactId);
+    const result = await Contact.findOne({ _id, owner });        
         if (!result) {
             throw HttpError(404, `Contact with id ${contactId} not found`)            
         }
@@ -37,18 +29,6 @@ const add = async (req, res) => {
 
         res.status(201).json(result);   
 }
-
-// const add = async (req, res) => {
-//     const { _id: owner } = req.user;
-//     const { path: oldPath, filename } = req.file;
-//     const newPath = path.join(avatarsPath, filename);
-//     await fs.rename(oldPath, newPath);    
-//     const avatarURL = path.join("avatars", filename)
-
-//         const result = await Contact.create({...req.body, avatarURL, owner});
-
-//         res.status(201).json(result);   
-// }
 
 const updateById = async (req, res) => {      
         const { contactId: _id } = req.params;
