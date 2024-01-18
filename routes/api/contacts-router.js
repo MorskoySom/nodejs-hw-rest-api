@@ -16,7 +16,9 @@ contactsRouter.get('/', contactControler.getAll)
 
 contactsRouter.get('/:contactId', isCorrectId, contactControler.getById)
 
-contactsRouter.post('/', upload.single("avatar"), isNoBody, validateBody(contactAddSchema), contactControler.add)
+contactsRouter.post('/', isNoBody, validateBody(contactAddSchema), contactControler.add)
+
+// contactsRouter.post('/', upload.single("avatar"), isNoBody, validateBody(contactAddSchema), contactControler.add)
 
 contactsRouter.put('/:contactId', isNoBody, isCorrectId, validateBody(contactUpdateSchema), contactControler.updateById)
 

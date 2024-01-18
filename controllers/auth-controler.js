@@ -39,7 +39,7 @@ const signup = async (req, res) => {
     await sendEmail(verifyEmail);
 
     res.json({
-        owner: newUser.owner,
+        username: newUser.username,
         email: newUser.email,
     })
 }
@@ -52,7 +52,7 @@ const signin = async (req, res) => {
     }
 
     if (!user.verify) {
-        throw HttpError(404, 'Email not verify')
+        throw HttpError(400, 'Email not verify')
     }
 
     const passwordCompare = await bcrypt.compare(password, user.password);
@@ -70,6 +70,8 @@ const signin = async (req, res) => {
 
     res.json({
         token,
+        owner: user.owner,
+        email: user.email,
     })
 }
 
@@ -77,7 +79,7 @@ const verify = async (req, res) => {
     const { verificationToken } = req.params;
     const user = await User.findOne({ verificationToken });
     if (!user) {
-        throw HttpError(404, 'User not found')
+        throw HttpError(404, 'User not found or already verify')
     }
     await User.findByIdAndUpdate(user._id, { verify: true, verificationToken: "" })
     
@@ -99,13 +101,17 @@ const resendVerifyEmail = async (req, res) => {
     const verifyEmail = {
         to: email,
         subject: "Verify email",
-        html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click to verify email</a>`
+        html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationToken}">Click to verify email</a>`
     }
 
     await sendEmail(verifyEmail);
 
-    res.status(200).json({
-        message: "Verification email sent"
+    // res.status(200).json({
+    //     message: "Verification email sent"
+    // })
+    res.json({
+        username: user.username,
+        email: user.email,
     })
 
 }
