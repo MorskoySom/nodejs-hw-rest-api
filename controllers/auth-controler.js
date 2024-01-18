@@ -70,7 +70,7 @@ const signin = async (req, res) => {
 
     res.json({
         token,
-        owner: user.owner,
+        username: user.username,
         email: user.email,
     })
 }
@@ -106,14 +106,9 @@ const resendVerifyEmail = async (req, res) => {
 
     await sendEmail(verifyEmail);
 
-    // res.status(200).json({
-    //     message: "Verification email sent"
-    // })
-    res.json({
-        username: user.username,
-        email: user.email,
+    res.status(200).json({
+        message: "Verification email sent"
     })
-
 }
 
 const getCurrent = async (req, res) => {
